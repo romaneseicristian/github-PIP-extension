@@ -11,6 +11,7 @@ JavaScript
 
 // A simple yet powerful change to get a much better image
 artwork = url.replace(/-t50x50(\.(png|jpg))?$/i, '-t500x500$1');
+
 2. From Static Page to the Mini-Player
 Our first approach was to grab track information from the main page's title and artwork elements. This worked, but it was brittle. When you navigate to a new page, the main elements would disappear before the new ones loaded, leading to blank screens in the PiP window.
 
@@ -24,6 +25,7 @@ const miniTitle = document.querySelector(
   '.playbackSoundBadge__title a, ' +
   '.playbackSoundBadge__title'
 );
+
 3. Tackling the isPlaying State
 Detecting whether a track was playing or paused was a constant challenge. The button's class and attributes would change unpredictably, causing the PiP window to get stuck in the wrong state. We couldn't rely on a single attribute.
 
@@ -40,6 +42,7 @@ const isPlayingIndicated =
   !!document.querySelector('.playControls .playControls__play.playing');
 
 isPlaying = !!isPlayingIndicated;
+
 4. Handling Intermittent Image Loading (CORS & Caching)
 Even with the correct artwork URL, we found that images would sometimes fail to load with an ERR_HTTP2_PROTOCOL_ERROR. This was a subtle and difficult bug to track down, as the URL was valid and it would work on a refresh.
 
@@ -54,6 +57,7 @@ JavaScript
 // The fix for intermittent loading
 const uniqueUrl = url + (url.includes('?') ? '&' : '?') + 'cacheBust=' + Date.now();
 img.src = uniqueUrl;
+
 5. User Activation for Picture-in-Picture
 A common issue with browser extensions is that the requestPictureInPicture() API requires a direct user interaction. If the call isn't made synchronously from a user's click, the browser will throw a NotAllowedError.
 
