@@ -1,0 +1,35 @@
+{
+"manifest_version": 3,
+"name": "SoundCloud PiP",
+"description": "Picture-in-Picture for SoundCloud tracks with artwork, title and play/pause control.",
+"version": "1.0",
+"permissions": [
+"activeTab",
+"scripting",
+"tabs",
+"storage"
+],
+"host_permissions": [
+"https://soundcloud.com/*"
+],
+"action": {
+"default_popup": "popup.html",
+"default_title": "SoundCloud PiP"
+},
+"background": {
+"service_worker": "background.js"
+},
+"content_scripts": [
+{
+"matches": ["https://soundcloud.com/*"],
+"js": ["content.js"],
+"run_at": "document_idle"
+}
+],
+"web_accessible_resources": [
+{
+"resources": ["pip.js"],
+"matches": ["https://soundcloud.com/*"]
+}
+]
+}
